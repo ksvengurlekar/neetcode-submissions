@@ -1,0 +1,21 @@
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+
+class Solution:
+    def goodNodes(self, root: TreeNode) -> int:
+        return self.countGoods(root, root.val)
+        
+    def countGoods(self, node, largest):
+        if not node:
+            return 0
+
+        counts = self.countGoods(node.left, max(node.val, largest)) + self.countGoods(node.right, max(node.val, largest))
+        
+        if node.val >= largest:
+            return counts + 1
+        else:
+            return counts
